@@ -1,0 +1,494 @@
+{
+  "id": "d0bb618f-4f50-4e2a-822f-a52f5d55d0a7",
+  "revision": 0,
+  "last_node_id": 37,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        255,
+        469
+      ],
+      "size": [
+        597,
+        665
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "title": "Gemini Vision Node",
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "You are an expert automated invoice calculation assistant. Your job is to extract data from visual invoice/rate sheets and execute accurate mathematical billing computations.\n\nStep 1: DATA EXTRACTION & VALIDATION\n1. Extract the Artist Name from the image header (default to \"Unknown Artist\" if not found).\n2. Extract all Line Items, their associated Durations, and any specific tag badges (e.g., \"(PDF)\", \"3D\", \"VFX\").\n3. Extract the Rate Rules displayed on the right or bottom of the sheet.\n\nStep 2: DYNAMIC RATE CLASSIFICATION\nAnalyze the visual Rate Chart and assign pricing logic per line item:\n- CASE A (Slab-Based Pricing):\n  • Map the item's duration (mm:ss) to its exact time tier (e.g., 1:11 to 2:10).\n  • If \"(PDF)\" is present in the line item name, use the dedicated \"For PDF Videos\" slab chart.\n  • Otherwise, use the standard video slab chart.\n- CASE B (Per-Minute / Continuous Pricing):\n  • Calculate the per-second rate: (Per-Minute Rate ÷ 60).\n  • Convert line item duration to total seconds, multiply by the per-second rate, and apply standard rounding.\n  • If \"(PDF)\" has a separate per-minute rate listed (e.g., ₹900/min), apply that specific rate to PDF tagged items.\n- CASE C (Missing / Invalid Durations):\n  • If duration is completely empty, blank, or missing, set Cost = ₹0 and mark duration as \"MISSING\".\n  • If duration is \"-\" or \"N/A\", set Cost = ₹0.\n\nStep 3: MATHEMATICAL COMPUTATION\n- Compute individual costs for each valid line item.\n- Sum up all valid line item durations into a grand Total Duration (mm:ss).\n- Sum up all individual costs into a grand TOTAL COST.\n\nStep 4: STRICT OUTPUT FORMATTING RULES\n- Do NOT use Markdown tables, pipe characters (|), headers (##), or bold markers (**).\n- Print clean, line-separated text readable in standard ComfyUI text preview nodes.\n- Include a clear visual separator between items and totals.\n\nOUTPUT EXACTLY IN THIS LAYOUT:\n\nArtist: [Artist Name]\nDetected Rate Model: [e.g., Slab Rates (Standard + PDF) / Per-Minute Rate]\n--------------------------------------------------\n• [Line Item 1] (Duration: mm:ss) -> ₹[Cost] [[Applied Rule/Slab]]\n• [Line Item 2] (Duration: mm:ss) -> ₹[Cost] [[Applied Rule/Slab]]\n• [Line Item 3] (Duration: MISSING) -> ₹0 [Pending Duration Input]\n--------------------------------------------------\nTotal Valid Duration: [Sum of mm:ss]\nTOTAL COST: ₹[Sum of Costs]\nStatus Notes: [e.g., \"All items calculated successfully\" OR \"Warning: X items missing durations\"]"
+      ],
+      "widgets_values_named": {
+        "value": "You are an expert automated invoice calculation assistant. Your job is to extract data from visual invoice/rate sheets and execute accurate mathematical billing computations.\n\nStep 1: DATA EXTRACTION & VALIDATION\n1. Extract the Artist Name from the image header (default to \"Unknown Artist\" if not found).\n2. Extract all Line Items, their associated Durations, and any specific tag badges (e.g., \"(PDF)\", \"3D\", \"VFX\").\n3. Extract the Rate Rules displayed on the right or bottom of the sheet.\n\nStep 2: DYNAMIC RATE CLASSIFICATION\nAnalyze the visual Rate Chart and assign pricing logic per line item:\n- CASE A (Slab-Based Pricing):\n  • Map the item's duration (mm:ss) to its exact time tier (e.g., 1:11 to 2:10).\n  • If \"(PDF)\" is present in the line item name, use the dedicated \"For PDF Videos\" slab chart.\n  • Otherwise, use the standard video slab chart.\n- CASE B (Per-Minute / Continuous Pricing):\n  • Calculate the per-second rate: (Per-Minute Rate ÷ 60).\n  • Convert line item duration to total seconds, multiply by the per-second rate, and apply standard rounding.\n  • If \"(PDF)\" has a separate per-minute rate listed (e.g., ₹900/min), apply that specific rate to PDF tagged items.\n- CASE C (Missing / Invalid Durations):\n  • If duration is completely empty, blank, or missing, set Cost = ₹0 and mark duration as \"MISSING\".\n  • If duration is \"-\" or \"N/A\", set Cost = ₹0.\n\nStep 3: MATHEMATICAL COMPUTATION\n- Compute individual costs for each valid line item.\n- Sum up all valid line item durations into a grand Total Duration (mm:ss).\n- Sum up all individual costs into a grand TOTAL COST.\n\nStep 4: STRICT OUTPUT FORMATTING RULES\n- Do NOT use Markdown tables, pipe characters (|), headers (##), or bold markers (**).\n- Print clean, line-separated text readable in standard ComfyUI text preview nodes.\n- Include a clear visual separator between items and totals.\n\nOUTPUT EXACTLY IN THIS LAYOUT:\n\nArtist: [Artist Name]\nDetected Rate Model: [e.g., Slab Rates (Standard + PDF) / Per-Minute Rate]\n--------------------------------------------------\n• [Line Item 1] (Duration: mm:ss) -> ₹[Cost] [[Applied Rule/Slab]]\n• [Line Item 2] (Duration: mm:ss) -> ₹[Cost] [[Applied Rule/Slab]]\n• [Line Item 3] (Duration: MISSING) -> ₹0 [Pending Duration Input]\n--------------------------------------------------\nTotal Valid Duration: [Sum of mm:ss]\nTOTAL COST: ₹[Sum of Costs]\nStatus Notes: [e.g., \"All items calculated successfully\" OR \"Warning: X items missing durations\"]"
+      }
+    },
+    {
+      "id": 29,
+      "type": "StringConcatenate",
+      "pos": [
+        2643.163661476326,
+        -475.18506440499937
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "",
+        "",
+        ""
+      ],
+      "widgets_values_named": {
+        "string_a": "",
+        "string_b": "",
+        "delimiter": ""
+      }
+    },
+    {
+      "id": 24,
+      "type": "VHS_VideoInfo",
+      "pos": [
+        1981.2870023969779,
+        -509.7522086249971
+      ],
+      "size": [
+        234.931640625,
+        206
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video_info",
+          "type": "VHS_VIDEOINFO",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "source_fps🟨",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count🟨",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration🟨",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_width🟨",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_height🟨",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "loaded_fps🟦",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "loaded_frame_count🟦",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "loaded_duration🟦",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "loaded_width🟦",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "loaded_height🟦",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoInfo"
+      },
+      "widgets_values": {}
+    },
+    {
+      "id": 25,
+      "type": "VHS_LoadVideoPath",
+      "pos": [
+        1550.1911958902658,
+        -602.0700103701182
+      ],
+      "size": [
+        278.04453125,
+        286
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "frame_count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "video_info",
+          "type": "VHS_VIDEOINFO",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_LoadVideoPath"
+      },
+      "widgets_values": {
+        "video": "",
+        "force_rate": 0,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 0,
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "format": "AnimateDiff",
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "",
+            "type": "path",
+            "format": "video/",
+            "force_rate": 0,
+            "custom_width": 0,
+            "custom_height": 0,
+            "frame_load_cap": 0,
+            "skip_first_frames": 0,
+            "select_every_nth": 1
+          }
+        }
+      },
+      "widgets_values_named": {
+        "video": "",
+        "force_rate": 0,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 0,
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "format": "AnimateDiff",
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "",
+            "type": "path",
+            "format": "video/",
+            "force_rate": 0,
+            "custom_width": 0,
+            "custom_height": 0,
+            "frame_load_cap": 0,
+            "skip_first_frames": 0,
+            "select_every_nth": 1
+          }
+        }
+      }
+    },
+    {
+      "id": 33,
+      "type": "ShowText|pysssss",
+      "pos": [
+        1602.8958920775497,
+        507.92444049075914
+      ],
+      "size": [
+        659.1999999999996,
+        440.6999999999997
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "shape": 6,
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Final Invoice",
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "Artist: Sample Artist\nDetected Rate Model: Slab-Based Pricing\n--------------------------------------------------\n• Project_01 - V5 (Duration: 2:05) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_02 - V4 (Duration: 2:06) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_03 - V3 (Duration: 2:27) -> ₹2,100 [Slab 2:11 to 3:10]\n• Project_04 - V2 (Duration: 2:27) -> ₹2,100 [Slab 2:11 to 3:10]\n• Project_05 - V1/E1 (Duration: 0:24) -> ₹700 [Slab 1:00 to 1:10]\n• Project_06 - V1/E1 (Duration: MISSING) -> ₹0 [Pending Duration Input]\n• Project_07 - V1/E1 (Duration: MISSING) -> ₹0 [Pending Duration Input]\n• Project_08 - V1/E1 (Duration: 1:42) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_09 - V1a/E1 - 3 Versions (Duration: 2:05) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_10 - V1 (Duration: 1:55) -> ₹1,400 [Slab 1:11 to 2:10]\n--------------------------------------------------\nTotal Valid Duration: 15:11\nTOTAL COST: ₹11,900\nStatus Notes: Warning: 2 items missing durations"
+      ],
+      "widgets_values_named": {
+        "text_0": "Artist: Sample Artist\nDetected Rate Model: Slab-Based Pricing\n--------------------------------------------------\n• Project_01 - V5 (Duration: 2:05) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_02 - V4 (Duration: 2:06) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_03 - V3 (Duration: 2:27) -> ₹2,100 [Slab 2:11 to 3:10]\n• Project_04 - V2 (Duration: 2:27) -> ₹2,100 [Slab 2:11 to 3:10]\n• Project_05 - V1/E1 (Duration: 0:24) -> ₹700 [Slab 1:00 to 1:10]\n• Project_06 - V1/E1 (Duration: MISSING) -> ₹0 [Pending Duration Input]\n• Project_07 - V1/E1 (Duration: MISSING) -> ₹0 [Pending Duration Input]\n• Project_08 - V1/E1 (Duration: 1:42) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_09 - V1a/E1 - 3 Versions (Duration: 2:05) -> ₹1,400 [Slab 1:11 to 2:10]\n• Project_10 - V1 (Duration: 1:55) -> ₹1,400 [Slab 1:11 to 2:10]\n--------------------------------------------------\nTotal Valid Duration: 15:11\nTOTAL COST: ₹11,900\nStatus Notes: Warning: 2 items missing durations"
+      }
+    },
+    {
+      "id": 3,
+      "type": "GeminiAPI",
+      "pos": [
+        1049.909,
+        291.2890000000002
+      ],
+      "size": [
+        400,
+        406
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "image2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GeminiAPI"
+      },
+      "widgets_values": [
+        "What is the meaning of life?",
+        "gemini-3.8-flash",
+        false,
+        false,
+        "Custom",
+        "Return only the prompt text itself. No explanations or formatting.",
+        "raw_text",
+        "YOUR_GEMINI_API_KEY"
+      ],
+      "widgets_values_named": {
+        "prompt": "What is the meaning of life?",
+        "gemini_model": "gemini-3.8-flash",
+        "stream": false,
+        "structure_output": false,
+        "prompt_structure": "Custom",
+        "structure_format": "Return only the prompt text itself. No explanations or formatting.",
+        "output_format": "raw_text",
+        "api_key": "YOUR_GEMINI_API_KEY"
+      }
+    },
+    {
+      "id": 37,
+      "type": "LoadImage",
+      "pos": [
+        559.7553169246272,
+        87.18709224843198
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "rate_sheet_sample.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "rate_sheet_sample.png",
+        "upload": "image"
+      }
+    }
+  ],
+  "links": [
+    [
+      2,
+      1,
+      0,
+      3,
+      7,
+      "STRING"
+    ],
+    [
+      12,
+      25,
+      3,
+      24,
+      0,
+      "VHS_VIDEOINFO"
+    ],
+    [
+      15,
+      3,
+      0,
+      33,
+      0,
+      "STRING"
+    ],
+    [
+      21,
+      37,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.4665073802097333,
+      "offset": [
+        26.27247495501395,
+        323.5368880213124
+      ]
+    },
+    "frontendVersion": "1.53.6",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
